@@ -74,6 +74,9 @@ void draw() {
     if ( mouseX >= 248 && mouseX <= 392 && mouseY >= 360 && mouseY<= 420){
       image(startHovered, startX, startY);
       if(mousePressed){
+        downPressed = false;
+        leftPressed = false;
+        rightPressed = false;
         gameState = GAME_RUN;
       }
     }else{
@@ -109,6 +112,8 @@ void draw() {
        if(groundhogY + 80 < height ){
          time++;
          if(time >= 1 && time <= 14){
+           leftPressed = false;
+           rightPressed = false;
            if(time % 3 == 1 || time % 3 == 2){
              groundhogY += groundhogSpeed1;
            }else if (time % 3 == 0){
@@ -121,6 +126,8 @@ void draw() {
            image(groundhogIdle, groundhogX, groundhogY);
            time = 0 ;
            downPressed = false;
+           leftPressed = false;
+           rightPressed = false;
          }
        }else{
          downPressed = false;
@@ -131,6 +138,8 @@ void draw() {
        if(groundhogX > 0 ){
          time++;
          if(time >= 1 && time <= 14){
+           downPressed = false;
+           rightPressed = false;
            if(time % 3 == 1 || time % 3 == 2){
              groundhogX -= groundhogSpeed1;
            }else if (time % 3 == 0){
@@ -142,7 +151,9 @@ void draw() {
            groundhogX -= groundhogSpeed2;
            image(groundhogIdle, groundhogX, groundhogY);
            time = 0 ;
+           downPressed = false;
            leftPressed = false;
+           rightPressed = false;
          }
        }else{
          leftPressed = false;
@@ -154,6 +165,8 @@ void draw() {
        if (groundhogX < width - 80){
          time++;
          if(time >= 1 && time <= 14){
+           downPressed = false;
+           leftPressed = false;
            if(time % 3 == 1 || time % 3 == 2){
              groundhogX += groundhogSpeed1;
            }else if (time % 3 == 0){
@@ -165,6 +178,8 @@ void draw() {
            groundhogX += groundhogSpeed2;
            image(groundhogIdle, groundhogX, groundhogY);
            time = 0 ;
+           downPressed = false;
+           leftPressed = false;
            rightPressed = false;
          }
        }else{
@@ -230,6 +245,9 @@ void draw() {
     if ( mouseX >= 248 && mouseX <= 392 && mouseY >= 360 && mouseY<= 420){
       image(restartHovered, restartX, restartY);
       if(mousePressed){
+        rightPressed = false;
+        leftPressed = false;
+        downPressed = false;
         heart1X = 10;
         heart2X = 30 + heartWidth;
         heart3X = -100;
@@ -249,13 +267,25 @@ void draw() {
 void keyPressed(){
  switch(keyCode){
   case DOWN: 
+  if(groundhogX % 80 == 0 && groundhogY % 80 ==0 ){
    downPressed = true;
+   leftPressed = false;
+   rightPressed = false;
+  }
    break;
-  case LEFT: 
+  case LEFT:
+  if(groundhogX % 80 == 0 && groundhogY % 80 ==0 ){
    leftPressed = true;
+   downPressed = false;
+   rightPressed = false;
+  }
    break;
-  case RIGHT: 
+  case RIGHT:
+  if(groundhogX % 80 == 0 && groundhogY % 80 ==0 ){
    rightPressed = true;
+   leftPressed = false;
+   downPressed = false;
+  }
    break;      
  }
 }
